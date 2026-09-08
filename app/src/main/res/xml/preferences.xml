@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Compass">
+        <SwitchPreferenceCompat
+            android:key="magnetic_north"
+            android:title="Magnetic North"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="compass_haptics"
+            android:title="Compass Haptics"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Units">
+        <SwitchPreferenceCompat
+            android:key="imperial_units"
+            android:title="Imperial (mi/ft)"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="precise_distance"
+            android:title="Precise Distance"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

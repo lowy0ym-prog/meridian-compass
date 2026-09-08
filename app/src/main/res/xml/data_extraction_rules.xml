@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<data-extraction-rules>
-    <domain-config>
-        <domain includeSubdomains="true">example.com</domain>
-        <path-list>
-            <path>/.*</path>
-        </path-list>
-    </domain-config>
-</data-extraction-rules>
+<PreferenceScreen>
+    <!-- Exclude database and cache from backup -->
+    <exclude domain="database" path="*.db" />
+    <exclude domain="cache" />
+</PreferenceScreen>

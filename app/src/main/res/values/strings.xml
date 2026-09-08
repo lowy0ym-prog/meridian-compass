@@ -1,9 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Meridian Compass</string>
-    <string name="map_title">Map</string>
-    <string name="waypoints_title">Waypoints</string>
-    <string name="search_title">Search</string>
-    <string name="mark_location">Mark Location</string>
-    <string name="record_trail">Record Trail</string>
+    <string name="app_description">Offline GPS Navigation and Waypoint App</string>
+
+    <!-- Main Actions -->
+    <string name="action_search">SEARCH</string>
+    <string name="action_rally">START OR JOIN A RALLY</string>
+    <string name="action_record_trail">RECORD TRAIL</string>
+    <string name="action_mark_on_map">MARK ON MAP</string>
+    <string name="action_mark_location">MARK MY LOCATION</string>
+
+    <!-- Screens -->
+    <string name="screen_compass">COMPASS</string>
+    <string name="screen_map">MAP</string>
+    <string name="screen_waypoints">WAYPOINTS</string>
+    <string name="screen_trails">TRAILS</string>
+    <string name="screen_settings">SETTINGS</string>
+
+    <!-- Compass -->
+    <string name="compass_heading">Heading</string>
+    <string name="compass_bearing">Bearing</string>
+    <string name="compass_distance">Distance</string>
+    <string name="compass_altitude">Altitude</string>
+    <string name="compass_accuracy">Accuracy</string>
+    <string name="compass_lock_bearing">LOCK BEARING</string>
+
+    <!-- Map -->
+    <string name="map_center_location">Center on Location</string>
+    <string name="map_current_location">Current Location</string>
+
+    <!-- Waypoints -->
+    <string name="waypoints_no_items">No Waypoints Yet</string>
+    <string name="waypoints_no_items_desc">Mark a location to create a waypoint</string>
+
+    <!-- Trails -->
+    <string name="trails_no_items">No Trails Yet</string>
+    <string name="trails_no_items_desc">Record a trail to get started</string>
+    <string name="trail_distance">Distance</string>
+    <string name="trail_duration">Duration</string>
+    <string name="trail_points">Points</string>
+
+    <!-- Settings -->
+    <string name="settings_compass">Compass</string>
+    <string name="settings_magnetic_north">Magnetic North</string>
+    <string name="settings_compass_haptics">Compass Haptics</string>
+    <string name="settings_units">Units</string>
+    <string name="settings_imperial">Imperial (mi/ft)</string>
+    <string name="settings_precise_distance">Precise Distance</string>
+    <string name="settings_data_management">Data Management</string>
+    <string name="settings_export_trails">Export Trails (GPX)</string>
+    <string name="settings_delete_waypoints">Delete All Waypoints</string>
+    <string name="settings_delete_trails">Delete All Trails</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Meridian Compass v1.0.0</string>
+    <string name="settings_description">Offline-first GPS navigation and waypoint app</string>
+
+    <!-- Common -->
+    <string name="action_back">Back</string>
+    <string name="action_add">Add</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
 </resources>

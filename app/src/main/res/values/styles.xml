@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MeridianCompass" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/primary_red</item>
+        <item name="colorSecondary">@color/success_green</item>
+        <item name="colorTertiary">@color/sun_yellow</item>
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:textColorPrimary">@color/light_text</item>
+        <item name="android:textColorSecondary">@color/muted_text</item>
+    </style>
+</resources>

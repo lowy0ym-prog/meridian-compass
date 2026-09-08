@@ -13,6 +13,7 @@ import com.meridian.compass.ui.theme.MeridianCompassTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
         setContent {
             MeridianCompassTheme {
                 Surface(

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Meridian Compass</string>
+    <string name="map_title">Map</string>
+    <string name="waypoints_title">Waypoints</string>
+    <string name="search_title">Search</string>
+    <string name="mark_location">Mark Location</string>
+    <string name="record_trail">Record Trail</string>
+</resources>

@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -29,17 +30,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.meridian.compass.data.models.Waypoint
-import com.meridian.compass.data.models.WaypointCategories
+import com.meridian.compass.data.models.Trail
 import com.meridian.compass.ui.theme.DarkBackground
 import com.meridian.compass.ui.theme.DarkPanel
-import com.meridian.compass.ui.theme.DarkSurface
 import com.meridian.compass.ui.theme.LightText
 import com.meridian.compass.ui.theme.MutedText
 import com.meridian.compass.ui.theme.PrimaryRed
+import com.meridian.compass.ui.theme.SuccessGreen
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 @Composable
-fun WaypointsScreen(onBack: () -> Unit, waypoints: List<Waypoint> = emptyList()) {
+fun TrailsScreen(onBack: () -> Unit, trails: List<Trail> = emptyList()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -65,26 +68,16 @@ fun WaypointsScreen(onBack: () -> Unit, waypoints: List<Waypoint> = emptyList())
                     )
                 }
                 Text(
-                    "WAYPOINTS",
+                    "TRAILS",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = LightText,
                     modifier = Modifier.align(Alignment.Center)
                 )
-                IconButton(
-                    onClick = { /* Add waypoint */ },
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                ) {
-                    Icon(
-                        Icons.Default.Add,
-                        contentDescription = "Add",
-                        tint = PrimaryRed
-                    )
-                }
             }
 
-            // Waypoints List
-            if (waypoints.isEmpty()) {
+            // Trails List
+            if (trails.isEmpty()) {
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -95,14 +88,14 @@ fun WaypointsScreen(onBack: () -> Unit, waypoints: List<Waypoint> = emptyList())
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            "No Waypoints Yet",
+                            "No Trails Yet",
                             fontSize = 18.sp,
                             color = LightText,
                             fontWeight = FontWeight.Bold
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            "Mark a location to create a waypoint",
+                            "Record a trail to get started",
                             fontSize = 12.sp,
                             color = MutedText
                         )
@@ -116,15 +109,15 @@ fun WaypointsScreen(onBack: () -> Unit, waypoints: List<Waypoint> = emptyList())
                         .padding(horizontal = 16.dp),
                     verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)
                 ) {
-                    items(waypoints) { waypoint ->
-                        WaypointCard(waypoint)
+                    items(trails) { trail ->
+                        TrailCard(trail)
                     }
                 }
             }
 
             // Action Button
             Button(
-                onClick = { /* Mark my location */ },
+                onClick = { /* Record new trail */ },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp)
@@ -132,61 +125,106 @@ fun WaypointsScreen(onBack: () -> Unit, waypoints: List<Waypoint> = emptyList())
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryRed),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Text("MARK MY LOCATION", fontWeight = FontWeight.Bold)
+                Icon(
+                    Icons.Default.PlayArrow,
+                    contentDescription = "Record",
+                    modifier = Modifier.width(20.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("RECORD NEW TRAIL", fontWeight = FontWeight.Bold)
             }
         }
     }
 }
 
 @Composable
-fun WaypointCard(waypoint: Waypoint) {
+fun TrailCard(trail: Trail) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .background(DarkPanel, RoundedCornerShape(8.dp))
             .padding(12.dp)
-            .clickable { /* Navigate to waypoint */ }
+            .clickable { /* View trail */ }
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                WaypointCategories.getEmoji(waypoint.category),
-                fontSize = 24.sp,
-                modifier = Modifier.padding(end = 12.dp)
-            )
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    waypoint.name,
-                    fontSize = 14.sp,
-                    color = LightText,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    "${waypoint.latitude}, ${waypoint.longitude}",
-                    fontSize = 11.sp,
-                    color = MutedText
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    WaypointCategories.getDisplay(waypoint.category),
-                    fontSize = 10.sp,
-                    color = com.meridian.compass.ui.theme.SuccessGreen
-                )
-            }
-            IconButton(
-                onClick = { /* Delete waypoint */ },
-                modifier = Modifier.width(40.dp)
+        Column {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    Icons.Default.Delete,
-                    contentDescription = "Delete",
-                    tint = PrimaryRed,
-                    modifier = Modifier.width(20.dp)
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        trail.name,
+                        fontSize = 14.sp,
+                        color = LightText,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    val date = LocalDateTime.ofInstant(
+                        Instant.ofEpochMilli(trail.startedAt),
+                        ZoneId.systemDefault()
+                    )
+                    Text(
+                        date.toString(),
+                        fontSize = 11.sp,
+                        color = MutedText
+                    )
+                }
+                IconButton(
+                    onClick = { /* Delete trail */ },
+                    modifier = Modifier.width(40.dp)
+                ) {
+                    Icon(
+                        Icons.Default.Delete,
+                        contentDescription = "Delete",
+                        tint = PrimaryRed,
+                        modifier = Modifier.width(20.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(16.dp)
+            ) {
+                TrailStat(label = "Distance", value = "%.1f km".format(trail.totalDistance / 1000))
+                TrailStat(label = "Duration", value = formatDuration(trail.totalDuration))
+                TrailStat(
+                    label = "Points",
+                    value = "${(Math.random() * 100).toInt()}",
+                    color = SuccessGreen
                 )
             }
         }
+    }
+}
+
+@Composable
+fun TrailStat(label: String, value: String, color: androidx.compose.ui.graphics.Color = LightText) {
+    Column {
+        Text(
+            label,
+            fontSize = 10.sp,
+            color = MutedText
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            value,
+            fontSize = 12.sp,
+            color = color,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+fun formatDuration(seconds: Long): String {
+    val hours = seconds / 3600
+    val minutes = (seconds % 3600) / 60
+    val secs = seconds % 60
+    return when {
+        hours > 0 -> "%dh %dm".format(hours, minutes)
+        minutes > 0 -> "%dm %ds".format(minutes, secs)
+        else -> "%ds".format(secs)
     }
 }
